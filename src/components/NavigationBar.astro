@@ -1,0 +1,177 @@
+---
+import NavigationBarLink from './NavigationBarLink.astro';
+interface NavigationLink {
+	text: string,
+	href: string,
+	color: string
+}
+
+const links: NavigationLink[] = [
+	{
+		text: 'Home',
+		href: '/',
+		color: '#BC3Cff'
+	},
+	{
+		text: 'About',
+		href: '/',
+		color: '#435CD8'
+	},
+	{
+		text: 'Career',
+		href: '/',
+		color: '#4BCC6D'
+	},
+	{
+		text: 'Projects',
+		href: '/',
+		color: '#DD902C'
+	},
+	{
+		text: 'Blog',
+		href: '/',
+		color: '#DD492C'
+	},
+	{
+		text: 'Contact',
+		href: '/',
+		color: '#2CC9DD'
+	}
+];
+
+---
+
+<nav id="js-main-navigation">
+	<div class="nav__background" id="js-nav__background">
+		<div class="nav__grid"/>
+		<div class="nav__mask"/>
+	</div>
+	
+	<div class="nav__links">
+		{
+			links.map((link) =>
+				(
+						<NavigationBarLink href={link.href} highlightColor={link.color}>{link.text}</NavigationBarLink>
+				))
+		}
+	</div>
+	
+	<script>
+		const navElement = document.getElementById('js-main-navigation');
+		const navBackgroundElement = document.getElementById('js-nav__background');
+		
+		const heroElement = document.getElementById('js-hero');
+		const headerElement = document.getElementById('js-header');
+		
+		if(heroElement)
+		{
+			const observer = new IntersectionObserver((entries) => {
+				entries.map((entry) =>
+				{
+					if(entry.isIntersecting)
+					{
+						navElement.style.top = 'calc(-1 * var(--navbar-height))';
+					}
+					else
+					{
+						navElement.style.top = '0';
+					}
+				});
+			});
+			
+			observer.observe(heroElement);
+		}
+		
+		if(headerElement)
+		{
+			navElement.style.top = '0';
+			
+			const observer = new IntersectionObserver((entries) => {
+				entries.map((entry) =>
+				{
+					if(entry.isIntersecting)
+					{
+						navBackgroundElement.style.opacity = '0';
+					}
+					else
+					{
+						navBackgroundElement.style.opacity = '0.97';
+					}
+				});
+			});
+			
+			observer.observe(headerElement);
+		}
+	</script>
+</nav>
+
+<style>
+	
+	nav {
+		position: fixed;
+		top: calc(-1 * var(--navbar-height));
+		left: 0;
+		
+		z-index: 1000;
+		
+		width: 100%;
+		height: var(--navbar-height);
+		
+		transition: top 0.5s;
+	}
+	
+	.nav__links {
+		position: absolute;
+		right: 0;
+		
+		width: 40%;
+		height: 100%;
+		
+		display: flex;
+		align-items: center;
+		justify-content: end;
+	}
+	
+	.nav__background,
+	.nav__grid,
+	.nav__mask {
+		width: 100%;
+		height: 100%;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	
+	.nav__background {
+		background-color: var(--col-navbar-background);
+		opacity: 0;
+		
+		transition: opacity 0.4s;
+	}
+	
+	.nav__grid {
+		background-position: 0 0;
+		background-size: 20px 20px;
+		background-image: radial-gradient(circle, rgba(220, 220, 220, 0.1) 2px, rgba(0, 0, 0, 0) 2px);
+
+		animation-name: anim-nav-grid;
+		animation-iteration-count: infinite;
+		animation-duration: 30s;
+		animation-timing-function: linear;
+	}
+	
+	.nav__mask {
+		background-image: linear-gradient(90deg, transparent 0%, var(--col-navbar-background) 75%);
+	}
+	
+	@keyframes anim-nav-grid {
+		from {
+			background-position: 0 0;
+		}
+		to {
+			background-position: -260px 20px;
+		}
+	}
+	
+</style>

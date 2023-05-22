@@ -1,0 +1,45 @@
+---
+interface Props {
+	href: string,
+	highlightColor: string
+}
+
+const {href, highlightColor} = Astro.props;
+---
+
+<a
+		class="nav__link"
+		href={href}
+		data-color={highlightColor}
+>
+	<slot/>
+</a>
+
+<style define:vars={{highlightColor}}>
+	.nav__link {
+		--highlight-color: var(--highlightColor);
+		
+		text-decoration: none;
+		color: var(--col-text);
+
+		text-align: center;
+		outline: none;
+
+		transition: color 0.3s;
+	
+		border-right-style: solid;
+		border-right-color: rgba(255, 255, 255, 0.1);
+		border-right-width: thin;
+		
+		flex: 1;
+	}
+	
+	.nav__link:last-of-type {
+		border-right: none;
+	}
+	
+	.nav__link:hover,
+	.nav__link:focus-visible {
+		color: var(--highlight-color);
+	}
+</style>

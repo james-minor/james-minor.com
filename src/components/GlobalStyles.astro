@@ -1,0 +1,57 @@
+---
+
+---
+
+<style is:global>
+	:root {
+		/* Color Properties */
+		--col-body-background: #111316;
+		--col-navbar-background: #17191C;
+
+		--col-text: #FFFFFF;
+		
+		/* Sizing Properties */
+		--navbar-height: 3rem;
+	}
+	
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		font: inherit;
+		font-family: sans-serif;
+	}
+
+	img,
+	picture,
+	svg,
+	video {
+		display: block;
+		max-width: 100%;
+	}
+
+	html {
+		scroll-behavior: smooth;
+		scroll-padding: var(--navbar-height);
+	}
+	
+	body {
+		background-color: var(--col-body-background);
+		color: var(--col-text);
+	}
+	
+	p {
+		line-height: 1.6;
+		max-width: 70ch;
+		
+		font-size: 1.2rem;
+	}
+	
+	@media (prefers-reduced-motion) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+</style>
