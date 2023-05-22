@@ -39,6 +39,7 @@ const {title, subtitle = '', backgroundColor} = Astro.props;
 		background-color: var(--header-color);
 		
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 	}
@@ -77,15 +78,18 @@ const {title, subtitle = '', backgroundColor} = Astro.props;
 		background-image: linear-gradient(180deg, transparent 0%, var(--header-color) 100%);
 	}
 	
-	.header__title {
-		font-size: 7rem;
-		font-weight: bold;
-		
+	.header__title,
+	.header__subtitle {
+		text-align: center;
 		z-index: 100;
 	}
 	
+	.header__title {
+		font-size: clamp(2rem, 10vw + 1rem, 10rem);
+		font-weight: bold;
+	}
+	
 	.header__subtitle {
-		font-size: 2rem;
-		z-index: 100;
+		font-size: clamp(1rem, 1vw + 1rem, 5rem);
 	}
 </style>
